@@ -1,0 +1,13 @@
+extends ../layout.jade
+
+block content           
+  form(action="loginAction", method="POST")
+    h3 Login
+    span Name :
+    input(type="text", name="user")
+    br
+    span Passw :
+    input(type="password", name="pass")
+    br
+    br
+    input(type="submit")
