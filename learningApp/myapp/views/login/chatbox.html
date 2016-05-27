@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <style type="text/css">
+      .parent-cont {
+        display: inline-block;
+        width: 500px;
+        border: 1px solid #ebebe0;
+      }
+      .parent-cont div {
+        margin: 2px;
+      }
+      .parent-cont div .time{
+        font-size: 11px;
+        font-style: italic;
+        margin-left: 5px;
+      }
+      .parent-cont .left {
+        text-align: left;
+        color: #006600;    
+      }
+      .parent-cont .right{
+        text-align: right;
+        color: #003366;   
+      }
+      .input-box textarea{
+        width: 496px;
+        resize: vertical;
+        height: 30px;
+        font-size: 11px;
+        color: #403D3D;
+      }  
+    </style>
+</head>
+<body>
+    <div class="parent-cont">
+        <div class="left">
+            <span>hello </span>
+            <span class="time">23:25</span>    
+        </div>
+
+        <div class="right">
+            <span>hi </span>
+            <span class="time">23:26</span>    
+        </div>
+    </div>
+    <div class="input-box">
+        <textarea id="chat-box"></textarea>
+        <input type="submit" value="send"></input>
+    </div>
+<script type="text/javascript">
+    var app = function(data){
+        var temp = '<div class="#CL"><span>#VL</span><span class="time">#TM</span></div>';
+        var time = new Date();
+        time = time.getHours() + ':'+ time.getMinutes();
+        $('.parent-cont').append(temp.replace('#VL', data.value).replace('#CL', data.position).replace('#TM', time));
+    };
+</script>    
+</body>
+</html>

@@ -13,6 +13,25 @@ var login = require('./routes/login');
 
 var app = express();
 
+//socket
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  socket.on('chat message', function(msg){
+    //console.log('message: ' + msg);
+    var time = new Date();
+    time = time.getHours() + ':'+ time.getMinutes();
+    io.emit('chat message', {msg:msg, time:time, posi:'right'});
+  });
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -72,4 +91,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports = {app: app, server: server};

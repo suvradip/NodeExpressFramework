@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var login = require('../model/loginAction');
+var login = require('../controller/login');
 
 /*get login page. */
 router.get('/', function(req, res, next) {
@@ -9,10 +9,7 @@ router.get('/', function(req, res, next) {
 
 /*get loginAction page. */
 router.post('/loginAction', function(req, res, next) {
-  
-  //login.create(req.body.user, req.body.pass, next);
-  console.log(login.getAllByUser(6));
-  res.render('user/index', {name: req.body.user });
+  login.loginValidate(req.body.user, req.body.pass, res);
 });
 
 

@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+/*chat box*/
+.parent-cont {
+  display: inline-block;
+  width: 500px;
+  border: 1px solid #ebebe0;
+}
+.parent-cont div {
+  margin: 2px;
+}
+.parent-cont div .time{
+  font-size: 11px;
+  font-style: italic;
+  margin-left: 5px;
+}
+.parent-cont .left {
+  text-align: left;
+  color: #006600;    
+}
+.parent-cont .right{
+  text-align: right;
+  color: #003366;   
+}
+.input-box textarea{
+  width: 496px;
+  resize: vertical;
+  height: 30px;
+  font-size: 11px;
+  color: #403D3D;
+}
+/*chat box*/  

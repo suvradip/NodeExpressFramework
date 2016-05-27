@@ -9,17 +9,17 @@ exports.create = function(userId, password, done) {
   });
 };
 
-exports.getAll = function(done) {
+exports.getAll = function(callback) {
   db.get().query('SELECT * FROM users', function (err, rows) {
-    if (err) return done(err);
-    done(null, rows);
+    if (err) callback(err, null);
+    callback(null, rows);
   });
 };
 
-exports.getAllByUser = function(userId) {
-  db.get().query('SELECT * FROM users WHERE id = ?', userId, function (err, rows, result){
-    if (err) console.log("from insert query"+err);
-    else return rows;
+exports.getAllByUser = function(userId, callback) {
+  db.get().query('SELECT * FROM users WHERE username = ?', userId, function (err, rows){
+    if (err) callback(err, null);
+    else callback(null,rows);
   });
 };  
 
