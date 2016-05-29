@@ -9,8 +9,14 @@ router.get('/', function(req, res, next) {
 
 /*get loginAction page. */
 router.post('/loginAction', function(req, res, next) {
-  login.loginValidate(req.body.user, req.body.pass, res);
+	if(req.body.user !== '' && req.body.pass !== '')
+  	login.loginValidate(req.body.user, req.body.pass, res);
+  else
+  	res.render('login/index', {title: "This is a login page", message: 'Invalid login.'});
 });
 
+router.get('/loginAction', function(req,res){
+	res.render('login/index', {title: "This is a login page", message: 'Invalid login.'});
+});
 
 module.exports = router;

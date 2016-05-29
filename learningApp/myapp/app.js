@@ -6,31 +6,45 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var db = require('./db');
+var session = require('client-sessions');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
-
+//var session = require('./controller/session');
 var app = express();
 
 //socket
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
+// global.__mysessionObj = {};
+// app.use(function(req, res, next){
+//   session.createSession(req.ip);
+//   next();
+// });
 
-  socket.on('chat message', function(msg){
-    //console.log('message: ' + msg);
-    var time = new Date();
-    time = time.getHours() + ':'+ time.getMinutes();
-    io.emit('chat message', {msg:msg, time:time, posi:'right'});
-  });
+io.on('connection', function(socket, req){
+    console.log('a user connected');
+    
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
+
+    socket.on('chat_object', function(_chartObj){
+      var time = new Date();
+      time = time.getHours() + ':'+ time.getMinutes();
+      io.emit('chat message', {msg:_chartObj.msg, time:time, username:_chartObj.username, posi:'right'});
+    });
 });
+
+//setting up session
+// app.use(session({
+//   cookieName: 'session',
+//   secret: 'dnfjdfuid452#$&(&wf7we46578sfhsvh!2347' + Math.round(Math.random() *100),
+//   duration: 30 * 60 * 1000,
+//   activeDuration: 5 * 60 * 1000,
+// }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

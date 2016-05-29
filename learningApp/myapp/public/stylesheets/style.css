@@ -11,6 +11,10 @@ a {
   display: inline-block;
   width: 500px;
   border: 1px solid #ebebe0;
+  max-height: 170px;
+  overflow: auto;
+  margin-bottom: -4px;
+  padding: 0 7px;
 }
 .parent-cont div {
   margin: 2px;
@@ -22,17 +26,20 @@ a {
 }
 .parent-cont .left {
   text-align: left;
-  color: #006600;    
+  color: #006600;
+  margin-top:10px;    
 }
 .parent-cont .right{
   text-align: right;
   color: #003366;   
+  margin-top:10px;
 }
 .input-box textarea{
-  width: 496px;
+  width: 510px;
   resize: vertical;
   height: 30px;
   font-size: 11px;
   color: #403D3D;
+  border: 1px solid #BBB7B7;
 }
 /*chat box*/  

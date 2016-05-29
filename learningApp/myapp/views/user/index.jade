@@ -6,32 +6,46 @@ block content
   p Shout Box
 
   div(class="parent-cont")
-    div(class="left")
-      span hello
-      span(class="time") 23:25
-
     div(class="right")
-      span hi
+      span test
+      br
+      span say 
       span(class="time") 23:26 
           
   div(class="input-box")
     textarea(id="chat-box")
     input(type="submit", value="send")
  
-  script(src="https://code.jquery.com/jquery-2.2.4.min.js")
+  // setting username and make it as hiddent
+  input(type="text", hidden, id="username", value=username)
+
+  script(src="/javascripts/jquery-2.2.4.min.js")
   script(src="/javascripts/socket.io/socket.io.js")
   script.
-    console.log('socket test');
     var socket = io();
     //sending message to server
-    $('input[type=submit]').on('click', function(){
-      socket.emit('chat message', $('textarea').val());
+    var sendMsg = function(){
+      socket.emit('chat_object', {msg:$('textarea').val(), username:$("#username").val()});
       $('textarea').val('');
       return false;
-    });
+    };
+
+    $('input[type=submit]').on('click', sendMsg);
+    $('textarea').on('keydown', function(event){
+      if(event.keyCode === 13) {
+        sendMsg();
+        event.preventDefault();
+      }
+    })
     //receiving message
     
     socket.on('chat message', function(data){
-      var temp = '<div class="#CL"><span>#VL</span><span class="time">#TM</span></div>';
-      $('.parent-cont').append(temp.replace('#VL', data.msg).replace('#CL', data.posi).replace('#TM', data.time));
+      var temp = '<div class="#CL"><sapn>#UN<span/><br/><span>#VL</span><span class="time">#TM</span></div>';
+      if($("#username").val() !== data.username)
+        data.posi = 'left'
+
+      $('.parent-cont').append(temp.replace('#UN', data.username).replace('#VL', data.msg).replace('#CL', data.posi).replace('#TM', data.time));
+      
+      //scroll bottom to div
+      $(".parent-cont").scrollTop($(".parent-cont")[0].scrollHeight);
     });
